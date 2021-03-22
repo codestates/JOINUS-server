@@ -2,44 +2,30 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert("users", [
-      {
-        userName: "kill",
-        userEmail: "k@n.g",
-        password: "1q2w3e4r",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        userName: "dong",
-        userEmail: "d@t.a",
-        password: "3e8sf4s6",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-    ]);
-
     await queryInterface.bulkInsert("stacks", [
-      {
-        stackName: "javascript",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        stackName: "python",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
-      {
-        stackName: "c#",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      },
+      { stackName: "C", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "C#", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "C++", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "CSS", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Go", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "HTML", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Java", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "JavaScript", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "JSP", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Liquid", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Node.js", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Perl", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "PHP", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Python", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Ruby", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Sass", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "Solidity", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "TypeScript", createdAt: new Date(), updatedAt: new Date() },
+      { stackName: "XML", createdAt: new Date(), updatedAt: new Date() },
     ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("users", null, {});
     await queryInterface.bulkDelete("stacks", null, {});
   },
 };

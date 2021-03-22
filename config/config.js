@@ -1,27 +1,33 @@
-require("dotenv").config();
-const env = process.env;
+const dotenv = require("dotenv");
+dotenv.config();
 
 const config = {
   development: {
-    username: env.MYSQL_USERNAME,
-    password: env.MYSQL_PASSWORD,
-    database: 'joinus_dev',
-    host: env.MYSQL_HOST,
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: "joinus_dev",
+    port: process.env.MYSQL_PORT,
     dialect: "mysql",
+    logging: false,
   },
   test: {
-    username: env.MYSQL_USERNAME,
-    password: env.MYSQL_PASSWORD,
-    database: 'joinus_test',
-    host: env.MYSQL_HOST,
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: "joinus_test",
+    port: process.env.MYSQL_PORT,
     dialect: "mysql",
+    logging: false,
   },
   production: {
-    username: env.MYSQL_USERNAME,
-    password: env.MYSQL_PASSWORD,
-    database: 'joinus',
-    host: env.MYSQL_HOST,
+    host: process.env.MYSQL_HOST,
+    username: process.env.MYSQL_USERNAME,
+    password: process.env.MYSQL_PASSWORD,
+    database: "joinus",
+    port: process.env.MYSQL_PORT,
     dialect: "mysql",
+    logging: false,
   },
 };
 
