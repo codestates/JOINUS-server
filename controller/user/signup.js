@@ -63,7 +63,6 @@ module.exports = {
           });
         });
       }
-
       res.send({ message: "welcome dev!" });
     }
   },

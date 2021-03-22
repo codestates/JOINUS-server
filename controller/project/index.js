@@ -9,5 +9,7 @@ module.exports = {
   accept: require("./accept"),
   reject: require("./reject"),
   rejectCheck: require("./rejectCheck"),
-  cancel: require("./cancel")
+  cancel: require("./cancel"),
+  getall: require("./getall"),
+  testpost: require("./testpost"),
 };
