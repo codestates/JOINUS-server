@@ -13,8 +13,8 @@ module.exports = {
       });
 
       await attendUser.update(
-        { where: { userId: data.dataValues.id, projectId: projectId } },
-        { state: "reject" }
+        { state: "reject" },
+        { where: { userId: data.dataValues.id, projectId: projectId } }
       );
 
       res.send({ message: "reject" });

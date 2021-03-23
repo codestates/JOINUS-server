@@ -20,9 +20,9 @@ module.exports = {
         { password: hashed, profileImage: profileImage, company: company }
       );
 
-      await user_stack.destroy({ where: { userId: userId } });
-
-      if (stacks.length > 0) {
+      if (stacks && stacks.length > 0) {
+        await user_stack.destroy({ where: { userId: userId } });
+   
         let stackData = await stack.findAll({
           where: { stackName: stacks },
         });

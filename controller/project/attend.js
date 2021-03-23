@@ -8,10 +8,11 @@ module.exports = {
     if (!req.headers.authorization) {
       res.status(400).json({ message: "invalid access token" });
     } else {
-      await attendUser.create({
-        userId: userId,
-        projectId: projectId,
-        state: 'waiting'
+      await attendUser.findOrCreate({
+        where: { userId: userId, projectId: projectId },
+        defaults: {
+          state: "waiting",
+        },
       });
 
       res.send({ message: "attend" });

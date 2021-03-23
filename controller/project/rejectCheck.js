@@ -9,8 +9,8 @@ module.exports = {
       res.status(400).json({ message: "invalid access token" });
     } else {
       await attendUser.update(
-        { where: { userId: userId, projectId: projectId } },
-        { checked: "checked" }
+        { checked: "checked" },
+        { where: { userId: userId, projectId: projectId } }
       );
 
       res.send({ message: "check" });

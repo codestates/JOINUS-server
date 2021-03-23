@@ -3,7 +3,7 @@ const { stack, project, project_stack, image } = models;
 
 module.exports = {
   post: async (req, res) => {
-    const {
+    let {
       projectId,
       projectName,
       projectDesc,
@@ -12,6 +12,19 @@ module.exports = {
       attendExpired,
       level,
     } = req.body;
+
+    let stringBody = [projectDesc, attendExpired, level];
+    let arrBody = [projectStacks, image_urls];
+    
+    stringBody = stringBody.map((el) => {
+      if (!el) return "";
+    });
+    arrBody = arrBody.map((el) => {
+      if (!el) return [];
+    });
+
+    [projectDesc, attendExpired, level] = stringBody;
+    [projectStacks, image_urls] = arrBody;
 
     if (!req.headers.authorization) {
       res.status(400).json({ data: null, message: "invalid access token" });
