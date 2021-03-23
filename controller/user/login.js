@@ -45,9 +45,7 @@ module.exports = {
           .digest("hex");
 
         await ref.update(
-          {
-            hashed: hashed,
-          },
+          { hashed: hashed },
           { where: { id: refIdx.dataValues.id } }
         );
 

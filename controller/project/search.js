@@ -24,7 +24,12 @@ module.exports = {
 
     if (dropBox === "writer") {
       projectData = await project.findAll({
-        where: { level: levels },
+        where: {
+          projectName: {
+            [Op.like]: `%${searchValue}%`,
+          },
+          level: levels,
+        },
         include: [
           {
             model: user,
@@ -94,6 +99,11 @@ module.exports = {
         }
       });
 
+      let thumbnail = "";
+      if (el.dataValues.images.length !== 0) {
+        thumbnail = el.dataValues.images[0].dataValues.image_url;
+      }
+
       projectList.push({
         projectId: el.dataValues.id,
         projectName: el.dataValues.projectName,
@@ -102,7 +112,7 @@ module.exports = {
         level: el.dataValues.level,
         stack: stackList,
         attendCount: el.dataValues.attendPerson.length,
-        thumbnail: el.dataValues.images[0].dataValues.image_url,
+        thumbnail: thumbnail,
       });
     });
 

@@ -14,25 +14,32 @@ module.exports = {
 
     let projectList = [];
 
-    projectData.forEach((el) => {
-      let stackList = [];
-      el.dataValues.stacks.forEach((stack) => {
-        if (stack.length !== 0) {
-          stackList.push(stack.dataValues.stackName);
-        }
-      });
+    if (projectData.length !== 0) {
+      projectData.forEach((el) => {
+        let stackList = [];
+        el.dataValues.stacks.forEach((stack) => {
+          if (stack.length !== 0) {
+            stackList.push(stack.dataValues.stackName);
+          }
+        });
 
-      projectList.push({
-        projectId: el.dataValues.id,
-        projectName: el.dataValues.projectName,
-        attendExpired: el.dataValues.attendExpired,
-        writeUser: el.dataValues.writeUser.dataValues.userName,
-        level: el.dataValues.level,
-        stack: stackList,
-        attendCount: el.dataValues.attendPerson.length,
-        thumbnail: el.dataValues.images[0].dataValues.image_url,
+        let thumbnail = "";
+        if (el.dataValues.images.length !== 0) {
+          thumbnail = el.dataValues.images[0].dataValues.image_url;
+        }
+
+        projectList.push({
+          projectId: el.dataValues.id,
+          projectName: el.dataValues.projectName,
+          attendExpired: el.dataValues.attendExpired,
+          writeUser: el.dataValues.writeUser.dataValues.userName,
+          level: el.dataValues.level,
+          stack: stackList,
+          attendCount: el.dataValues.attendPerson.length,
+          thumbnail: thumbnail,
+        });
       });
-    });
+    }
 
     res.send({ data: projectList });
   },

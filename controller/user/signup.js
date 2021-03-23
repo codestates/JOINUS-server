@@ -25,45 +25,45 @@ module.exports = {
 
       if (existData) {
         res.status(409).json({ message: "exist email" });
-      }
+      } else {
+        const hashed = crypto
+          .createHmac("sha256", process.env.SHA_SECRET)
+          .update(password)
+          .digest("hex");
 
-      const hashed = crypto
-        .createHmac("sha256", process.env.SHA_SECRET)
-        .update(password)
-        .digest("hex");
+        let userData = await user.create({
+          userEmail: userEmail,
+          userName: userName,
+          password: hashed,
+          profileImage: profileImage,
+          company: company,
+        });
 
-      let userData = await user.create({
-        userEmail: userEmail,
-        userName: userName,
-        password: hashed,
-        profileImage: profileImage,
-        company: company,
-      });
+        let userId = userData.dataValues.id;
 
-      let userId = userData.dataValues.id;
-
-      if (portfolios.length > 0) {
-        portfolios.forEach(async (el) => {
-          await portfolio.create({
-            userId: userId,
-            portfolio: el,
+        if (portfolios && portfolios.length > 0) {
+          portfolios.forEach(async (el) => {
+            await portfolio.create({
+              userId: userId,
+              portfolio: el,
+            });
           });
-        });
-      }
+        }
 
-      if (stacks.length > 0) {
-        let stackData = await stack.findAll({
-          where: { stackName: stacks },
-        });
-
-        stackData.forEach(async (el) => {
-          await user_stack.create({
-            userId: userId,
-            stackId: el.dataValues.id,
+        if (stacks && stacks.length > 0) {
+          let stackData = await stack.findAll({
+            where: { stackName: stacks },
           });
-        });
+
+          stackData.forEach(async (el) => {
+            await user_stack.create({
+              userId: userId,
+              stackId: el.dataValues.id,
+            });
+          });
+        }
+        res.send({ message: "welcome dev!" });
       }
-      res.send({ message: "welcome dev!" });
     }
   },
 };

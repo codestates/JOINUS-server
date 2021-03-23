@@ -21,11 +21,11 @@ module.exports = {
       let stacks = [];
       let portfolios = [];
 
-      userData.stack.forEach((el) => {
+      userData.stacks.forEach((el) => {
         stacks.push(el.dataValues.stackName);
       });
 
-      userData.portfolio.forEach((el) => {
+      userData.portfolios.forEach((el) => {
         portfolios.push(el.dataValues.portfolio);
       });
 
@@ -41,15 +41,18 @@ module.exports = {
       attendData.forEach((el) => {
         if (el.dataValues.state === "accept") {
           acceptProject.push({
-            projectName: el.dataValues.attendProject.projectName,
+            projectName: el.project.dataValues.projectName,
+            projectId: el.project.dataValues.id
           });
         } else if (el.dataValues.state === "waitingProject") {
           waitingProject.push({
-            projectName: el.dataValues.attendProject.projectName,
+            projectName: el.project.dataValues.projectName,
+            projectId: el.project.dataValues.id
           });
         } else if (el.dataValues.checked !== "checked") {
           rejectProject.push({
-            projectName: el.dataValues.attendProject.projectName,
+            projectName: el.project.dataValues.projectName,
+            projectId: el.project.dataValues.id
           });
         }
       });
