@@ -23,10 +23,7 @@ module.exports = {
           }
         });
 
-        let thumbnail = "";
-        if (el.dataValues.images.length !== 0) {
-          thumbnail = el.dataValues.images[0].dataValues.image_url;
-        }
+        let thumbnail = 'img/' + el.dataValues.image.dataValues.image_url.slice(7)
 
         projectList.push({
           projectId: el.dataValues.id,
