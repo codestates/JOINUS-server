@@ -8,19 +8,19 @@ module.exports = {
       projectName,
       projectDesc,
       projectStacks,
-      image_urls,
+//      image_urls,
       attendExpired,
       level,
     } = req.body;
-
+let image_urls = []
     let stringBody = [projectDesc, attendExpired, level];
     let arrBody = [projectStacks, image_urls];
-    
+
     stringBody = stringBody.map((el) => {
-      if (!el) return "";
+      if (!el) {return ""} else {return el};
     });
     arrBody = arrBody.map((el) => {
-      if (!el) return [];
+      if (!el) {return []} else {return el};
     });
 
     [projectDesc, attendExpired, level] = stringBody;

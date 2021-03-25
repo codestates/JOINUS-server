@@ -9,7 +9,7 @@ module.exports = {
       res.status(400).json({ message: "invalid access token" });
     } else {
       let data = await user.findOne({
-        where: { userEmail, attendUserEmail },
+        where: { userEmail: attendUserEmail },
       });
 
       await attendUser.update(

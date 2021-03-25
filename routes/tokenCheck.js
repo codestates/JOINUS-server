@@ -1,15 +1,19 @@
 const axios = require("axios");
+const jwt = require("jsonwebtoken");
 
 module.exports = async (req, res) => {
-  let source = req.query.source;
-  let userId = req.query.userId;
+  let source = req.body.source;
+  let userId = req.body.userId;
   let auth = req.headers.authorization.split("Bearer ")[1];
   let result = true
 
   if (source === "joinus") {
     jwt.verify(auth, process.env.JWT_SECRET, async (err, decoded) => {
-      if (err) result = false;
-      if (decoded.exp - decoded.iat < 300) result = false;
+      if (err) {
+        result = false
+      } else if (decoded.exp - decoded.iat < 300) {
+        result = false
+      };
     });
   } else {
     await axios({

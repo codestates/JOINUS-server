@@ -11,8 +11,8 @@ module.exports = {
   authlogin: async (req, res) => {
     try {
       const oauth2Client = new google.auth.OAuth2(
-        process.env.client_test,
-        process.env.client_secret,
+        process.env.CLIENT_ID,
+        process.env.CLIENT_PW,
         process.env.redirect_uris
       );
 
@@ -113,7 +113,7 @@ module.exports = {
 
       const hashed = crypto
         .createHmac("sha256", process.env.SHA_SECRET)
-        .update(refIdx.dataValues.id)
+        .update(String(refIdx.dataValues.id))
         .digest("hex");
 
       await ref.update(

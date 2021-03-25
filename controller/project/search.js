@@ -7,7 +7,7 @@ module.exports = {
   post: async (req, res) => {
     let { stacks, dropBox, searchValue, levels } = req.body;
     let projectData;
-
+/*
     if (stacks.length === 0) {
       stacks = [];
       let allStack = await stack.findAll({
@@ -21,15 +21,9 @@ module.exports = {
     if (levels.length === 0) {
       levels = ["Beginner", "Intermediate", "Advanced"];
     }
-
+*/
     if (dropBox === "writer") {
       projectData = await project.findAll({
-        where: {
-          projectName: {
-            [Op.like]: `%${searchValue}%`,
-          },
-          level: levels,
-        },
         include: [
           {
             model: user,
@@ -40,7 +34,6 @@ module.exports = {
           { model: user, as: "attendPerson" },
           {
             model: stack,
-            where: { stackName: stacks },
             attributes: ["stackName"],
           },
           { model: image },
@@ -52,7 +45,6 @@ module.exports = {
           projectName: {
             [Op.like]: `%${searchValue}%`,
           },
-          level: levels,
         },
         include: [
           {
@@ -63,7 +55,6 @@ module.exports = {
           { model: user, as: "attendPerson" },
           {
             model: stack,
-            where: { stackName: stacks },
             attributes: ["stackName"],
           },
           { model: image },
@@ -71,7 +62,6 @@ module.exports = {
       });
     } else {
       projectData = await project.findAll({
-        where: { level: levels },
         include: [
           {
             model: user,
@@ -81,7 +71,6 @@ module.exports = {
           { model: user, as: "attendPerson" },
           {
             model: stack,
-            where: { stackName: stacks },
             attributes: ["stackName"],
           },
           { model: image },
@@ -90,7 +79,6 @@ module.exports = {
     }
 
     let projectList = [];
-
     projectData.forEach((el) => {
       let stackList = [];
       el.dataValues.stacks.forEach((stack) => {

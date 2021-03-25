@@ -11,10 +11,11 @@ module.exports = {
         projectName,
         projectDesc,
         attendExpired,
-        image_urls,
+   //     image_urls,
         projectStacks,
         level,
       } = req.body;
+let image_urls = []
 
       const projectData = await project.create({
         projectName: projectName,
