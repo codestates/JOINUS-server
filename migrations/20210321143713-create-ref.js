@@ -1,27 +1,17 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('attendUsers', {
+    await queryInterface.createTable('refs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: { model: "users", key: "id" },
-      },
-      projectId: {
-        type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        references: { model: "projects", key: "id" },
-      },
-      state: {
+      auth: {
         type: Sequelize.STRING
       },
-      checked: {
+      hashed: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -35,6 +25,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('attendUsers');
+    await queryInterface.dropTable('refs');
   }
 };

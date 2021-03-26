@@ -1,30 +1,69 @@
-const { Sequelize } = require("sequelize");
+const crypto = require("crypto");
+const dotenv = require("dotenv");
+dotenv.config();
 const models = require("../../models");
-const {
-  user,
-  stack,
-  user_stack,
-  project,
-  project_stack,
-  image,
-  attendUser,
-  portfolio,
-} = models;
+const { user, stack, user_stack, portfolio } = models;
 
 module.exports = {
   post: async (req, res) => {
-    const { email, password, name } = req.body;
+    const {
+      userEmail,
+      password,
+      userName,
+      company,
+      portfolios,
+      stacks,
+      profileImage,
+    } = req.body;
 
-    if (!email || !password || !name) {
-      res.status(403).json({ message: "insufficient parameters supplied" });
+    if (!userEmail || !password || !userName) {
+      res.status(403).send({ message: "insufficient parameters supplied" });
     } else {
-      await user.create({
-        userEmail: email,
-        userName: name,
-        password: password,
+      let existData = await user.findOne({
+        where: { userEmail: userEmail },
       });
 
-      res.send({ message: "welcome dev!" });
+      if (existData) {
+        res.status(409).json({ message: "exist email" });
+      } else {
+        const hashed = crypto
+          .createHmac("sha256", process.env.SHA_SECRET)
+          .update(password)
+          .digest("hex");
+
+        let userData = await user.create({
+          userEmail: userEmail,
+          userName: userName,
+          password: hashed,
+          profileImage: profileImage,
+          company: company,
+        });
+
+        let userId = userData.dataValues.id;
+
+        if (portfolios && portfolios.length > 0) {
+          portfolios.forEach(async (el) => {
+            await portfolio.create({
+              userId: userId,
+              portfolio: el,
+            });
+          });
+        }
+
+        if (stacks && stacks.length > 0) {
+          let stackData = await stack.findAll({
+            where: { stackName: stacks },
+          });
+
+          stackData.forEach(async (el) => {
+            await user_stack.create({
+              userId: userId,
+              stackId: el.dataValues.id,
+            });
+          });
+        }
+        res.send({ message: "welcome dev!" });
+      }
     }
   },
 };

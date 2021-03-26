@@ -2,5 +2,6 @@ module.exports = {
   signup: require("./signup"),
   login: require("./login"),
   logout: require("./logout"),
-  userinfo: require("./userinfo"),
+  info: require("./info"),
+  update: require("./update"),
 };

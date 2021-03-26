@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       projectDesc: DataTypes.STRING,
       attendExpired: DataTypes.STRING,
       userId: DataTypes.INTEGER,
+      level: DataTypes.STRING,
     },
     {
       sequelize,

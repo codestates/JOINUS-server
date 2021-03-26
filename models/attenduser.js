@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       projectId: DataTypes.INTEGER,
+      state: DataTypes.STRING,
+      checked: DataTypes.STRING,
     },
     {
       sequelize,
@@ -29,4 +31,3 @@ module.exports = (sequelize, DataTypes) => {
   );
   return attendUser;
 };
-
