@@ -88,8 +88,8 @@ module.exports = {
       });
 
       let thumbnail = "";
-      if (el.dataValues.images.length !== 0) {
-        thumbnail = el.dataValues.images[0].dataValues.image_url;
+      if (el.images[0]) {
+        thumbnail = 'img/' + el.images[0].dataValues.image_url;
       }
 
       projectList.push({

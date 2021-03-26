@@ -25,10 +25,6 @@ let image_urls = []
 
     [projectDesc, attendExpired, level] = stringBody;
     [projectStacks, image_urls] = arrBody;
-
-    if (!req.headers.authorization) {
-      res.status(400).json({ data: null, message: "invalid access token" });
-    } else {
       await project.update(
         {
           projectName: projectName,
@@ -52,17 +48,18 @@ let image_urls = []
           stackId: el.dataValues.id,
         });
       });
-
+/*
       await image.destroy({ where: { projectId: projectId } });
 
-      image_urls.forEach(async (image_url) => {
-        await image.create({
-          projectId: projectId,
-          image_url: image_url,
-        });
-      });
 
+      image_urls.forEach(async (image_url) => {
+        await image.update({
+          image_url: image_url,
+        },
+        { where: {projectId: projectId} }
+        );
+      });
+*/
       res.send({ message: "updated your project" });
-    }
   },
 };

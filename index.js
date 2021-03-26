@@ -18,8 +18,7 @@ const projectRouter = require("./routes/project");
 const portfolioRouter = require("./routes/portfolio");
 const accCheck = require("./routes/tokenCheck");
 const refreshingToken = require("./routes/refreshingToken");
-const models = require("./models");
-const { stack, project, project_stack, image } = models;
+const create = require("./controller/project/create")
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -28,9 +27,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://localhost:3000",
-      "https://joinus.colorfilter.cloud",
       "https://joinus.fun",
-      "https://test.joinus.fun"
     ],
     credentials: true,
     methods: ["GET", "POST", "OPTIONS"],
@@ -45,25 +42,12 @@ app.use("/", (req, res, next) => {
     res.status(403).json({ data: null, message: "need to renewal" });
   }
 });
+app.use('/img', express.static('uploads'))
 
 app.get("/refresh", refreshingToken);
-app.post("/upload", upload.single('imgFile') ,async (req, res)=> {
-const {
-        userId,
-        projectName,
-        projectDesc,
-        attendExpired,
-        projectStacks,
-      } = req.body;
-const projectData = await project.create({
-        projectName: projectName,
-        projectDesc: projectDesc,
-        attendExpired: attendExpired,
-        userId: userId,
-        
-      });
-
-  res.send()
+app.post("/upload", upload.single('imgFile'), async (req, res) => {
+  req.imgPath = req.file.originalname
+  create.post(req, res)
 })
 app.use("/user", userRouter);
 app.use("/project", projectRouter);
