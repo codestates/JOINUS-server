@@ -14,5 +14,6 @@ router.post("/accept", projectController.accept.post);
 router.post("/reject", projectController.reject.post);
 router.post("/rejectCheck", projectController.rejectCheck.post);
 router.post("/cancel", projectController.cancel.post);
+router.post("/participant", projectController.participant.post);
 
 module.exports = router;

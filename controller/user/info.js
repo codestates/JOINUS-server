@@ -3,6 +3,7 @@ const { user, stack, portfolio, project, attendUser } = models;
 
 module.exports = {
   post: async (req, res) => {
+
     if (!req.headers.authorization) {
       res.status(400).json({ data: null, message: "invalid access token" });
     } else {
@@ -18,6 +19,7 @@ module.exports = {
         ],
       });
 
+      let myProject = [];
       let stacks = [];
       let portfolios = [];
 
@@ -29,6 +31,12 @@ module.exports = {
         portfolios.push(el.dataValues.portfolio);
       });
 
+      userData.myProject.forEach((el) => {
+        myProject.push({
+          projectName: el.dataValues.projectName,
+          projectId: el.dataValues.id,
+        });
+      });
       let attendData = await attendUser.findAll({
         where: { userId: userId },
         include: [{ model: project }],
@@ -44,7 +52,7 @@ module.exports = {
             projectName: el.project.dataValues.projectName,
             projectId: el.project.dataValues.id
           });
-        } else if (el.dataValues.state === "waitingProject") {
+        } else if (el.dataValues.state === "waiting") {
           waitingProject.push({
             projectName: el.project.dataValues.projectName,
             projectId: el.project.dataValues.id
@@ -64,6 +72,7 @@ module.exports = {
         profileImage: userData.dataValues.profileImage,
         portfolio: portfolios,
         stack: stacks,
+        myProject: myProject,
         acceptProject: acceptProject,
         rejectProject: rejectProject,
         waitingProject: waitingProject,

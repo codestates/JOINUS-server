@@ -4,5 +4,4 @@ module.exports = {
   logout: require("./logout"),
   info: require("./info"),
   update: require("./update"),
-  userinfo: require("./userinfo"),
 };

@@ -15,16 +15,15 @@ module.exports = {
       ],
     });
     let attendCount = data.dataValues.attendPerson.length;
-    let images = [];
     let stacks = [];
 
     data.stacks.forEach((el) => {
       stacks.push(el.dataValues.stackName);
     });
-
-    data.images.forEach((el) => {
-      images.push(el.dataValues.image_url);
-    });
+let thumbnail = ''
+if(data.dataValues.images){
+thumbnail = 'img/' + data.dataValues.images[0].dataValues.image_url
+}
 
     res.send({
       data: {
@@ -35,7 +34,7 @@ module.exports = {
         attendExpired: data.dataValues.attendExpired,
         projectDesc: data.dataValues.projectDesc,
         level: data.dataValues.level,
-        images: images,
+        thumbnail: thumbnail,
         stacks: stacks,
         attendCount: attendCount,
       },

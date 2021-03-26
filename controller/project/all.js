@@ -22,12 +22,10 @@ module.exports = {
             stackList.push(stack.dataValues.stackName);
           }
         });
-
-        let thumbnail = "";
-        if (el.dataValues.images.length !== 0) {
-          thumbnail = el.dataValues.images[0].dataValues.image_url;
-        }
-
+let thumbnail = ''
+if(el.dataValues.images[0]) {
+thumbnail = 'img/' + el.dataValues.images[0].dataValues.image_url
+}
         projectList.push({
           projectId: el.dataValues.id,
           projectName: el.dataValues.projectName,
